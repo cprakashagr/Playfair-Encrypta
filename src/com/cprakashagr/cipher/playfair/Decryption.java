@@ -1,19 +1,19 @@
 package com.cprakashagr.cipher.playfair;
 
-public class Encryption {
+public class Decryption {
 
 	private String key;
 	private String matKey = "";
 	private String alphaNumeric = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	private char matrixKey[][] = new char[6][6];
 	
-	public Encryption() {
+	public Decryption() {
 		
 		key = "PLAYFAIR EXAMPLE EXTENDED2";
 		buildKey();
 	}
 	
-	public Encryption(String k) {
+	public Decryption(String k) {
 		
 		key = k;
 		buildKey();
@@ -77,12 +77,12 @@ public class Encryption {
 		}
 		return false;
 	}
-	
-	public String encrypt(String plainText) {
+
+	public String decrypt(String enText) {
 		
-		String enText = "";
+		String plainText = "";
 		
-		int lenPlainText = plainText.length();
+		int lenEnText = enText.length();
 		int i=0;
 		int ind1=-1;
 		int ind2=-1;
@@ -90,10 +90,11 @@ public class Encryption {
 		int i1,i2;
 		int j1,j2;
 		
-		for (i=0;i<=lenPlainText;i+=2) {
+		for (i=0;i<=lenEnText;i+=2) {
 			try {
-				char c1 = plainText.charAt(i);
-				char c2 = plainText.charAt(i+1);
+				char c1 = enText.charAt(i);
+				char c2 = enText.charAt(i+1);
+				
 				ind1 = findIndex(c1);
 				ind2 = findIndex(c2);
 				i1 = (ind1)/6;
@@ -104,38 +105,36 @@ public class Encryption {
 				
 				//System.out.println("C1: "+ c1 + ", C2: " + c2 + ":::" + i1 + " " + j1 + " , " + i2 + " " + j2);
 				
-				// Logics for the Encryption.
 				if (i1 == i2) {
 					// Forms Row
-					int k1 = (j1+1)%6;
-					int k2 = (j2+1)%6;
-					enText = enText.concat(String.valueOf(matrixKey[i1][k1]));
-					enText = enText.concat(String.valueOf(matrixKey[i1][k2]));
+					int k1 = (j1+5)%6;
+					int k2 = (j2+5)%6;
+					plainText = plainText.concat(String.valueOf(matrixKey[i1][k1]));
+					plainText = plainText.concat(String.valueOf(matrixKey[i1][k2]));
 					System.gc();
 				}
 				else if (j1 == j2) {
 					// Forms Row
-					int k1 = (i1+1)%6;
-					int k2 = (i2+1)%6;
-					enText = enText.concat(String.valueOf(matrixKey[k1][j1]));
-					enText = enText.concat(String.valueOf(matrixKey[k2][j1]));
+					int k1 = (i1+5)%6;
+					int k2 = (i2+5)%6;
+					plainText = plainText.concat(String.valueOf(matrixKey[k1][j1]));
+					plainText = plainText.concat(String.valueOf(matrixKey[k2][j1]));
 					System.gc();
 				}
 				else {
 					// Forms Rectangle
-					enText = enText.concat(String.valueOf(matrixKey[i1][j2]));
-					enText = enText.concat(String.valueOf(matrixKey[i2][j1]));
+					plainText = plainText.concat(String.valueOf(matrixKey[i1][j2]));
+					plainText = plainText.concat(String.valueOf(matrixKey[i2][j1]));
 					System.gc();					
 				}
-
 			}
-			catch (Exception e) {
+			catch(Exception e) {
 				
 			}
-		}
-		return enText;
+		}		
+		return plainText;
 	}
-
+	
 	private int findIndex(char c) {
 		int i=0,j=0;
 		

@@ -11,5 +11,9 @@ public class UI {
 		String plainText = "IMCHANDRAPRAKASH";
 		String encryptText = encryption.encrypt(plainText);
 		System.out.println(encryptText);
+		
+		Decryption decryption = new Decryption("PLAYFAIREXAMPLEEXTENDED");
+		plainText = decryption.decrypt(encryptText);
+		System.out.println(plainText);
 	}
 }
