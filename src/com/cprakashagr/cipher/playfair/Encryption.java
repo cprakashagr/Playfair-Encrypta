@@ -53,6 +53,7 @@ public class Encryption {
 				matrixKey[i][j] = matKey.charAt(flag++);
 			}
 		}
+		matKey = null;
 	}
 
 	private boolean contains(String word, char c) {
