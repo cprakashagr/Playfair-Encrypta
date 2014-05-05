@@ -7,10 +7,10 @@ The algorithm used here is rather an extension of original playfair, developed b
 
 To compile the program:
 ```
-javac com/cprakashagr/cipher/playfair
+$ javac com/cprakashagr/cipher/playfair
 ```
 
 To run the program:
 ```
-java com.cprakashagr.cipher.UI
+$ java com.cprakashagr.cipher.UI
 ```
