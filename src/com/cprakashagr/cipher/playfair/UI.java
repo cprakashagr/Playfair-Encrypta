@@ -7,9 +7,9 @@ public class UI {
 
 	public static void main(String[] args) {
 		
-		Encryption encryption = new Encryption("PLAY FAIR EXAMPLE EXTENDED CP LPU");
-		String plainText = "I'M CHANDRA PRAKASH";
+		Encryption encryption = new Encryption("PLAYFAIREXAMPLEEXTENDED");
+		String plainText = "IMCHANDRAPRAKASH";
 		String encryptText = encryption.encrypt(plainText);
+		System.out.println(encryptText);
 	}
-
 }

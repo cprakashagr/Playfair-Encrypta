@@ -17,6 +17,14 @@ public class Encryption {
 		
 		key = k;
 		buildKey();
+		
+		for (int i=0;i<6;i++) {
+			for (int j=0;j<6;j++) {
+				System.out.print(" " + matrixKey[i][j]);
+			}
+			
+			System.out.println();
+		}
 	}
 	
 	private void buildKey() {
@@ -29,7 +37,7 @@ public class Encryption {
 			c = key.charAt(i);
 			
 			if (c == ' ') {
-				continue;
+//				continue;
 			}
 			
 			if (!contains(matKey, c)) {
@@ -73,7 +81,70 @@ public class Encryption {
 		
 		String enText = "";
 		
+		int lenPlainText = plainText.length();
+		int i=0;
+		int ind1=-1;
+		int ind2=-1;
+		
+		int i1,i2;
+		int j1,j2;
+		
+		for (i=0;i<=lenPlainText;i+=2) {
+			try {
+				char c1 = plainText.charAt(i);
+				char c2 = plainText.charAt(i+1);
+				ind1 = findIndex(c1);
+				ind2 = findIndex(c2);
+				i1 = (ind1)/6;
+				j1 = (ind1)%6;
+				
+				i2 = (ind2)/6;
+				j2 = (ind2)%6;
+				System.out.println("C1: "+ c1 + ", C2: " + c2 + ":::" + i1 + " " + j1 + " , " + i2 + " " + j2);
+				
+				// Logics for the Encryption.
+				if (i1 == i2) {
+					// Forms Row
+					int k1 = (j1+1)%6;
+					int k2 = (j2+1)%6;
+					enText = enText.concat(String.valueOf(matrixKey[i1][k1]));
+					enText = enText.concat(String.valueOf(matrixKey[i1][k2]));
+					System.gc();
+				}
+				else if (j1 == j2) {
+					// Forms Row
+					int k1 = (i1+1)%6;
+					int k2 = (i2+1)%6;
+					enText = enText.concat(String.valueOf(matrixKey[k1][j1]));
+					enText = enText.concat(String.valueOf(matrixKey[k2][j1]));
+					System.gc();
+				}
+				else {
+					// Forms Rectangle
+					enText = enText.concat(String.valueOf(matrixKey[i1][j2]));
+					enText = enText.concat(String.valueOf(matrixKey[i2][j1]));
+					System.gc();					
+				}
+
+			}
+			catch (Exception e) {
+				
+			}
+		}
 		return enText;
 	}
 
+	private int findIndex(char c) {
+		int i=0,j=0;
+		
+		for (i=0;i<6;i++) {
+			for (j=0;j<6;j++) {
+				if (matrixKey[i][j] == c) {
+					return (i)*6+j;
+				}
+			}
+		}
+		
+		return -1;
+	}
 }
