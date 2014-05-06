@@ -87,18 +87,18 @@ public class Decryption {
 		int ind1=-1;
 		int ind2=-1;
 		
-		int i1,i2;
-		int j1,j2;
+		int i1=-1,i2=-1;
+		int j1=-1,j2=-1;
 		
-		for (i=0;i<=lenEnText;i+=2) {
+		for (i=0;i<=lenEnText;i++) {
 			try {
-				char c1 = enText.charAt(i);
-				char c2 = enText.charAt(i+1);
-				
+				char c1 = enText.charAt(i++);
 				ind1 = findIndex(c1);
-				ind2 = findIndex(c2);
 				i1 = (ind1)/6;
 				j1 = (ind1)%6;
+				
+				char c2 = enText.charAt(i++);
+				ind2 = findIndex(c2);
 				
 				i2 = (ind2)/6;
 				j2 = (ind2)%6;
@@ -129,7 +129,8 @@ public class Decryption {
 				}
 			}
 			catch(Exception e) {
-				
+				plainText = plainText.concat(String.valueOf(matrixKey[i1][j1]));
+				System.gc();
 			}
 		}		
 		return plainText;

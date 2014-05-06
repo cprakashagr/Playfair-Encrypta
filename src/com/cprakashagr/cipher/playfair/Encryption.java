@@ -17,7 +17,7 @@ public class Encryption {
 		
 		key = k;
 		buildKey();
-		/*
+		
 		for (int i=0;i<6;i++) {
 			for (int j=0;j<6;j++) {
 				System.out.print(" " + matrixKey[i][j]);
@@ -25,7 +25,7 @@ public class Encryption {
 			
 			System.out.println();
 		}
-		*/
+		
 	}
 	
 	private void buildKey() {
@@ -87,17 +87,18 @@ public class Encryption {
 		int ind1=-1;
 		int ind2=-1;
 		
-		int i1,i2;
-		int j1,j2;
+		int i1=0,i2=0;
+		int j1=0,j2=0;
 		
-		for (i=0;i<=lenPlainText;i+=2) {
+		for (i=0;i<=lenPlainText;i++) {
 			try {
-				char c1 = plainText.charAt(i);
-				char c2 = plainText.charAt(i+1);
+				char c1 = plainText.charAt(i++);
 				ind1 = findIndex(c1);
-				ind2 = findIndex(c2);
 				i1 = (ind1)/6;
 				j1 = (ind1)%6;
+				
+				char c2 = plainText.charAt(i++);
+				ind2 = findIndex(c2);
 				
 				i2 = (ind2)/6;
 				j2 = (ind2)%6;
@@ -129,8 +130,9 @@ public class Encryption {
 				}
 
 			}
-			catch (Exception e) {
-				
+			catch (StringIndexOutOfBoundsException e) {
+				enText = enText.concat(String.valueOf(matrixKey[i1][j1]));
+				System.gc();
 			}
 		}
 		return enText;
