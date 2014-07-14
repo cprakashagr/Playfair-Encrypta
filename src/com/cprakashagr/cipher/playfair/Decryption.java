@@ -71,6 +71,7 @@ public class Decryption {
 
 	public String decrypt(String enText) {
 		
+		enText = enText.toUpperCase();
 		StringBuilder plainText = new StringBuilder();
 		
 		int lenEnText = enText.length();

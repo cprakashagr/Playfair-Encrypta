@@ -71,6 +71,7 @@ public class Encryption {
 	
 	public String encrypt(String plainText) {
 		
+		plainText = plainText.toUpperCase();
 		StringBuilder enText = new StringBuilder();
 		
 		int lenPlainText = plainText.length();
