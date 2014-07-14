@@ -16,16 +16,7 @@ public class Decryption {
 	public Decryption(String k) {
 		
 		key = k;
-		buildKey();
-		/*
-		for (int i=0;i<6;i++) {
-			for (int j=0;j<6;j++) {
-				System.out.print(" " + matrixKey[i][j]);
-			}
-			
-			System.out.println();
-		}
-		*/
+		buildKey();		
 	}
 	
 	private void buildKey() {
@@ -80,7 +71,7 @@ public class Decryption {
 
 	public String decrypt(String enText) {
 		
-		String plainText = "";
+		StringBuilder plainText = new StringBuilder();
 		
 		int lenEnText = enText.length();
 		int i=0;
@@ -92,48 +83,42 @@ public class Decryption {
 		
 		for (i=0;i<=lenEnText;i++) {
 			try {
-				char c1 = enText.charAt(i++);
+				char c1 = enText.charAt(i);
 				ind1 = findIndex(c1);
 				i1 = (ind1)/6;
 				j1 = (ind1)%6;
 				
-				char c2 = enText.charAt(i++);
+				char c2 = enText.charAt(++i);
 				ind2 = findIndex(c2);
 				
 				i2 = (ind2)/6;
 				j2 = (ind2)%6;
-				
-				//System.out.println("C1: "+ c1 + ", C2: " + c2 + ":::" + i1 + " " + j1 + " , " + i2 + " " + j2);
-				
+								
 				if (i1 == i2) {
 					// Forms Row
 					int k1 = (j1+5)%6;
 					int k2 = (j2+5)%6;
-					plainText = plainText.concat(String.valueOf(matrixKey[i1][k1]));
-					plainText = plainText.concat(String.valueOf(matrixKey[i1][k2]));
-					System.gc();
+					plainText.append(String.valueOf(matrixKey[i1][k1]));
+					plainText.append(String.valueOf(matrixKey[i1][k2]));
 				}
 				else if (j1 == j2) {
 					// Forms Row
 					int k1 = (i1+5)%6;
 					int k2 = (i2+5)%6;
-					plainText = plainText.concat(String.valueOf(matrixKey[k1][j1]));
-					plainText = plainText.concat(String.valueOf(matrixKey[k2][j1]));
-					System.gc();
+					plainText.append(String.valueOf(matrixKey[k1][j1]));
+					plainText.append(String.valueOf(matrixKey[k2][j1]));
 				}
 				else {
 					// Forms Rectangle
-					plainText = plainText.concat(String.valueOf(matrixKey[i1][j2]));
-					plainText = plainText.concat(String.valueOf(matrixKey[i2][j1]));
-					System.gc();					
+					plainText.append(String.valueOf(matrixKey[i1][j2]));
+					plainText.append(String.valueOf(matrixKey[i2][j1]));
 				}
 			}
 			catch(Exception e) {
-				plainText = plainText.concat(String.valueOf(matrixKey[i1][j1]));
-				System.gc();
+				plainText = plainText.append(String.valueOf(matrixKey[i1][j1]));
 			}
 		}		
-		return plainText;
+		return plainText.toString();
 	}
 	
 	private int findIndex(char c) {

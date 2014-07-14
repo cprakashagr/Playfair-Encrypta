@@ -7,12 +7,12 @@ public class UI {
 
 	public static void main(String[] args) {
 		
-		Encryption encryption = new Encryption("23456PLAYFAIREXAMPLEEXTENDED");
-		String plainText = "CP";
+		Encryption encryption = new Encryption("PLAYFAIREXAMPLEEXTENDED");
+		String plainText = "HIIAMCHANDRAPRAKASH";
 		String encryptText = encryption.encrypt(plainText);
 		System.out.println(encryptText);
 		
-		Decryption decryption = new Decryption("23456PLAYFAIREXAMPLEEXTENDED");
+		Decryption decryption = new Decryption("PLAYFAIREXAMPLEEXTENDED");
 		plainText = decryption.decrypt(encryptText);
 		System.out.println(plainText);
 	}
